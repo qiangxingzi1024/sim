@@ -1,10 +1,9 @@
-import numpy as np
 import time
-from scipy.stats import norm
-import matplotlib.pyplot as plt
-from numba import njit, prange
 
-import torch
+import matplotlib.pyplot as plt
+import numpy as np
+from numba import njit, prange
+from scipy.stats import norm
 
 
 # ======================
@@ -464,7 +463,7 @@ def APF(y_obs, N, Q, R, x0, prior_std=2.0):
 if __name__ == "__main__":
     # —— 超参数 ——
     T = 50                 # 仿真时长
-    Q_true = 1           # 过程噪声方差
+    Q_true = 0.1           # 过程噪声方差
     R_true = 0.1           # 观测噪声方差
     x0 = 5.0               # 初始状态
     N = 100           # 粒子数
@@ -493,7 +492,7 @@ if __name__ == "__main__":
 
 
     particle_counts = [10, 30, 50, 100,300,500]
-    mc_runs_for_N_sweep = 100  # 对于每种粒子数量进行 500 次 Monte Carlo
+    mc_runs_for_N_sweep = 500  # 对于每种粒子数量进行 500 次 Monte Carlo
 
     # 存储不同 N 值下的平均 RMSE
     avg_rmse_sir_N = []
