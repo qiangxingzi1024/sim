@@ -17,7 +17,7 @@ explore its potential applications in nonlinear system state estimation.
 ## File Structure
 This project adopts a modular design, ensuring clear and organized code that's easy to understand and extend:
 - `main.py`: The main script to run the simulations. It allows you to select different algorithms and configurations.
-
+```text
 project_root/
 ├── src/
 │   ├── config.py             # Configuration parameters for simulations and plotting
@@ -27,6 +27,7 @@ project_root/
 │   └── __init__.py           # Marks 'src' directory as a Python package
 ├── main.py                   # Main entry point of the program, coordinating module execution
 └── README.md                 # Project documentation file
+```
 
 ## Module Descriptions
 - `src/config.py`: Centralizes all configurable parameters for simulations (e.g., time steps T, true observation noise R_TRUE, Monte Carlo runs MC_RUNS) and plotting (e.g., line styles, colors). Notably, it includes BCPS-PF specific parameters like BCPS_ALPHA and BCPS_MAX_BATCHES.
