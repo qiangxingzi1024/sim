@@ -26,7 +26,7 @@ project_root/
 │   ├── utils.py              # Helper functions for plotting, result saving, etc.
 │   └── __init__.py           # Marks 'src' directory as a Python package
 ├── main.py                   # Main entry point of the program, coordinating module execution
-└── README.md                 # Project documentation file
+├── README.md                 # Project documentation file
 └── requirements.txt
 ```
 
