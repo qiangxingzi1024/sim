@@ -89,7 +89,7 @@ def run_monte_carlo_simulations(config: SimulationConfig) -> tuple[dict, dict, d
                 rmse_sir_runs.append(np.sqrt(np.mean((x_true - x_sir_est) ** 2)))
                 time_sir_runs.append(t_sir)
 
-                # Run EKF-PF
+                # Run EPF
                 x_epf_est, _, t_epf = EKF_PF(y_obs, current_N, Q_true, config.R_TRUE, config.X0, P0=1.0)
                 errors_epf[run_num, :] = (x_epf_est - x_true) ** 2
                 rmse_epf_runs.append(np.sqrt(np.mean((x_true - x_epf_est) ** 2)))
@@ -138,7 +138,7 @@ def run_monte_carlo_simulations(config: SimulationConfig) -> tuple[dict, dict, d
             # If current_N is 100, store the RMSE curves over time
             if current_N == 100:
                 all_rmse_curves_N100[Q_true]['SIR-PF'] = np.sqrt(np.mean(errors_sir, axis=0))
-                all_rmse_curves_N100[Q_true]['EKF-PF'] = np.sqrt(np.mean(errors_epf, axis=0))
+                all_rmse_curves_N100[Q_true]['EPF'] = np.sqrt(np.mean(errors_epf, axis=0))
                 all_rmse_curves_N100[Q_true]['UPF'] = np.sqrt(np.mean(errors_upf, axis=0))
                 all_rmse_curves_N100[Q_true]['APF'] = np.sqrt(np.mean(errors_apf, axis=0))
                 all_rmse_curves_N100[Q_true]['BCPS-PF'] = np.sqrt(np.mean(errors_bcps, axis=0))
@@ -146,14 +146,14 @@ def run_monte_carlo_simulations(config: SimulationConfig) -> tuple[dict, dict, d
 
         # Store all average RMSE and time for the current Q value
         all_avg_rmse[Q_true]['SIR-PF'] = avg_rmse_sir_N
-        all_avg_rmse[Q_true]['EKF-PF'] = avg_rmse_epf_N
+        all_avg_rmse[Q_true]['EPF'] = avg_rmse_epf_N
         all_avg_rmse[Q_true]['UPF'] = avg_rmse_upf_N
         all_avg_rmse[Q_true]['APF'] = avg_rmse_apf_N
         all_avg_rmse[Q_true]['BCPS-PF'] = avg_rmse_bcps_N
 
 
         all_avg_time[Q_true]['SIR-PF'] = avg_time_sir_N
-        all_avg_time[Q_true]['EKF-PF'] = avg_time_epf_N
+        all_avg_time[Q_true]['EPF'] = avg_time_epf_N
         all_avg_time[Q_true]['UPF'] = avg_time_upf_N
         all_avg_time[Q_true]['APF'] = avg_time_apf_N
         all_avg_time[Q_true]['BCPS-PF'] = avg_time_bcps_N

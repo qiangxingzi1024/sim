@@ -25,7 +25,7 @@ class SimulationConfig:
     # Line styles for different particle filters in plots
     LINE_STYLES = {
         'SIR-PF': '-',
-        'EKF-PF': '-',
+        'EPF': '-',
         'UPF': '-',
         'BCPS-PF': '-', # Unique style for BCPS-PF
         'APF': '-' # dashdotdotted style for APF
@@ -33,7 +33,7 @@ class SimulationConfig:
     # Colors for different particle filters in plots
     COLORS = {
         'SIR-PF': 'orangered',
-        'EKF-PF': 'forestgreen',
+        'EPF': 'forestgreen',
         'UPF': 'darkcyan',
         'BCPS-PF': 'royalblue', # Unique color for BCPS-PF
         'APF': 'darkorange'
@@ -41,7 +41,7 @@ class SimulationConfig:
     # Markers for different particle filters in plots
     MARKERS = {
         'SIR-PF': 'o',
-        'EKF-PF': 's',
+        'EPF': 's',
         'UPF': '^',
         'BCPS-PF': 'D', # Unique marker for BCPS-PF
         'APF': 'X'

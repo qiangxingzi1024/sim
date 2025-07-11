@@ -76,13 +76,13 @@ def plot_rmse_vs_particles(config, all_avg_rmse):
         plt.title(f'Avg. RMSE vs. Particle Count (Q={q_value})', fontsize=14)
         plt.xlabel('Number of Particles (N)', fontsize=12)
         plt.ylabel('Avg. RMSE', fontsize=12)
-        plt.xscale('log')  # Use log scale for particle count for better visualization
+        # plt.xscale('log')  # Use log scale for particle count for better visualization
         plt.xticks(config.PARTICLE_COUNTS, labels=[str(n) for n in config.PARTICLE_COUNTS])
         plt.legend(loc='upper right', ncol=2, frameon=True, shadow=True)
         plt.grid(True, which="both", ls="--", alpha=0.7)
 
     plt.tight_layout()
-    plt.savefig(output_path, dpi=600, bbox_inches='tight')
+    plt.savefig(output_path, dpi=600, bbox_inches='tight',facecolor='white')
     plt.close()
     print(f"Plot saved to {output_path}")
 
@@ -123,7 +123,7 @@ def plot_time_vs_particles(config, all_avg_time):
         ax.set_title(f'Avg. Computation Time vs. Particle Count (Q={q_value})', fontsize=16)
         ax.set_xlabel('Number of Particles (N)', fontsize=14)
         ax.set_ylabel('Avg. Time (s)', fontsize=14)
-        ax.set_xscale('log')
+        # ax.set_xscale('log')
         ax.set_xticks(config.PARTICLE_COUNTS)
         ax.set_xticklabels([str(n) for n in config.PARTICLE_COUNTS])
         ax.tick_params(axis='both', which='major', labelsize=12)
@@ -162,7 +162,7 @@ def plot_time_vs_particles(config, all_avg_time):
                                )
 
             # 内嵌图的 x 轴现在也要是 log 刻度，因为它覆盖了整个 N 范围
-            axins.set_xscale('log')
+            # axins.set_xscale('log')
             axins.set_xticks(config.PARTICLE_COUNTS)  # 刻度与主图保持一致
             axins.set_xticklabels([str(n) for n in config.PARTICLE_COUNTS])  # 刻度标签
             axins.set_title('Zoom In (Selected Algos)', fontsize=10)  # 标题可以更改，更准确

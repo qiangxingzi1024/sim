@@ -468,7 +468,7 @@ if __name__ == "__main__":
 
     alpha = 0.9  # BCPS‑PF 接受阈值
     max_batches = 50  # BCPS‑PF 最大批次数
-    mc_runs_for_N_sweep = 2  # 对于每种粒子数量进行 Monte Carlo
+    mc_runs_for_N_sweep = 500  # 对于每种粒子数量进行 Monte Carlo
 
     particle_counts = [10, 30, 50, 100, 300, 500]
     q_values = [1, 0.1]  # 不同的 Q_true 值
