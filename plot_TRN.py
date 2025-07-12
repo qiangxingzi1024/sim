@@ -101,6 +101,7 @@ if __name__ == "__main__":
     setup_plot_style()  # 应用全局绘图样式
     print("Generating RMSE comparison plot...")
 
+
     # 调用新的绘图函数
     plot_xy_rmse_comparison(config, x_axis_values, rmse_x_data, rmse_y_data)
 
