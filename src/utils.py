@@ -7,7 +7,7 @@ import pandas as pd
 
 def setup_plot_style():
     """Sets up global Matplotlib plot style for consistent appearance."""
-    plt.rcParams['font.size'] = 12
+    plt.rcParams['font.size'] = 14
     plt.rcParams['axes.labelsize'] = 14
     plt.rcParams['xtick.labelsize'] = 12
     plt.rcParams['ytick.labelsize'] = 12
@@ -275,3 +275,67 @@ def save_results_to_excel(config, all_avg_rmse, all_avg_time, rmse_curves_N100, 
 
     writer._save()  # Use _save() for newer pandas versions
     print(f"All simulation results saved to {excel_path}")
+
+
+# --- 新增的绘图函数 ---
+def plot_xy_rmse_comparison(config, x_axis_values, rmse_x_data, rmse_y_data):
+    """
+    Plots the RMSE in X and Y directions for multiple algorithms in an upper-lower layout.
+
+    Args:
+        config (SimpleNamespace): Configuration object containing plotting parameters.
+        x_axis_values (np.array): The values for the X-axis (e.g., time steps or particle counts).
+        rmse_x_data (dict): Dictionary with RMSE data for X-direction for each algorithm.
+                            Format: {'AlgoName': [rmse_values_list]}
+        rmse_y_data (dict): Dictionary with RMSE data for Y-direction for each algorithm.
+                            Format: {'AlgoName': [rmse_values_list]}
+    """
+    output_path = os.path.join(config.OUTPUT_FOLDER, 'xy_rmse_comparison.png')
+
+    fig, axes = plt.subplots(2, 1, figsize=(12, 10), sharex=True, dpi=300) # 2行1列，共享X轴
+
+    # --- 上图：X 方向 RMSE ---
+    ax1 = axes[0]
+    for algo_name in config.ALGORITHM_NAMES:
+        if algo_name in rmse_x_data:
+            ax1.plot(x_axis_values, rmse_x_data[algo_name], label=algo_name,
+                     linestyle=config.LINE_STYLES.get(algo_name, '-'),
+                     color=config.COLORS.get(algo_name, 'black'),
+                     marker=config.MARKERS.get(algo_name, 'o'),
+                     markevery=max(1, len(x_axis_values) // 10)) # 控制标记密度
+
+    ax1.set_title('RMSE in X Direction', fontsize=16)
+    ax1.set_ylabel('RMSE (m)', fontsize=14)
+    ax1.legend(loc='upper right', ncol=len(config.ALGORITHM_NAMES), frameon=True, shadow=True, fontsize=12) # 图例放上面
+    ax1.grid(True, which="both", ls="--", alpha=0.7)
+
+    # --- 下图：Y 方向 RMSE ---
+    ax2 = axes[1]
+    for algo_name in config.ALGORITHM_NAMES:
+        if algo_name in rmse_y_data:
+            ax2.plot(x_axis_values, rmse_y_data[algo_name], label=algo_name,
+                     linestyle=config.LINE_STYLES.get(algo_name, '-'),
+                     color=config.COLORS.get(algo_name, 'black'),
+                     marker=config.MARKERS.get(algo_name, 'o'),
+                     markevery=max(1, len(x_axis_values) // 10)) # 控制标记密度
+
+    ax2.set_title('RMSE in Y Direction', fontsize=16)
+    ax2.set_xlabel('Time Step' if len(x_axis_values) > 100 else 'Number of Particles (N)', fontsize=14) # 根据X轴长度猜测标签
+    ax2.set_ylabel('RMSE (m)', fontsize=14)
+    # ax2.legend(loc='upper right', ncol=len(config.ALGORITHM_NAMES), frameon=True, shadow=True, fontsize=12) # 下图可以不重复图例，或者放不同位置
+    ax2.grid(True, which="both", ls="--", alpha=0.7)
+
+    # 如果横坐标是粒子数，可能需要对数刻度
+    # 你可以根据实际情况解除注释或添加逻辑判断
+    # if len(x_axis_values) < 20 and x_axis_values[-1] / x_axis_values[0] > 5: # 简单的判断是否使用对数刻度
+    #     ax1.set_xscale('log')
+    #     ax2.set_xscale('log')
+    #     ax2.set_xticks(x_axis_values) # 仅在对数刻度时设置特定刻度
+    #     ax2.set_xticklabels([str(n) for n in x_axis_values])
+
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=600, bbox_inches='tight', facecolor='white') # 保存为白色背景
+    plt.close()
+    print(f"Plot saved to {output_path}")
+
+# ... (save_results_to_excel 和其他函数保持不变) ...
